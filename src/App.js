@@ -5,6 +5,7 @@ import { showNotification as notification } from "./helpers/notification_helper"
 import { randomWord } from "./utils/randomWordGenerator";
 
 import "./App.css";
+import HangedMan from "./components/HangedMan";
 
 let selectedWord;
 
@@ -15,6 +16,7 @@ function App() {
   const [showNotification, setShowNotification] = useState(false);
 
   function handleButtonKeyDown(event) {
+    console.log(`${handleButtonKeyDown.name} worked!`);
     const { key, keyCode } = event;
 
     if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -35,7 +37,7 @@ function App() {
             typed_letter,
           ]);
         } else {
-          showNotification(setShowNotification);
+          notification(setShowNotification);
         }
       }
     }
@@ -66,7 +68,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div className="game-container"></div>
+      <div className="game-container">
+        <HangedMan wrongLetters={wrongLetters}/>
+      </div>
     </div>
   );
 }
