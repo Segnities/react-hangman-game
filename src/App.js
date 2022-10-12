@@ -4,11 +4,14 @@ import Header from "./components/UI/Header/Header";
 import { showNotification as notification } from "./helpers/notification_helper";
 import { randomWord } from "./utils/randomWordGenerator";
 
-import "./App.css";
 import HangedMan from "./components/HangedMan";
 import WrongLetters from "./WrongLetters";
+import SelectedWord from "./components/SelectedWord";
+import ResultPopup from "./components/ResultPopup";
 
-let selectedWord;
+import "./App.css";
+
+let selectedWord = randomWord();
 
 function App() {
   const [playable, setPlayable] = useState(true);
@@ -17,7 +20,6 @@ function App() {
   const [showNotification, setShowNotification] = useState(false);
 
   function handleButtonKeyDown(event) {
-    console.log(`${handleButtonKeyDown.name} worked!`);
     const { key, keyCode } = event;
 
     if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -45,31 +47,37 @@ function App() {
   }
 
   function playAgain() {
+    selectedWord = randomWord();
     setPlayable(true);
     setCorrectLetters([]);
     setWrongLetters([]);
   }
 
   useEffect(() => {
-    selectedWord = randomWord();
-    console.log(`${new Date().toLocaleTimeString()}: `, selectedWord);
-  }, []);
-
-  useEffect(() => {
     window.addEventListener("keydown", handleButtonKeyDown);
 
     return function () {
       window.removeEventListener("keydown", handleButtonKeyDown);
-      selectedWord = randomWord();
     };
   }, [playable, correctLetters, wrongLetters]);
 
   return (
     <div className="App">
+      <ResultPopup
+        correctLetters={correctLetters}
+        playAgain={playAgain}
+        selectedWord={selectedWord}
+        setPlayable={setPlayable}
+        wrongLetters={wrongLetters}
+      />
       <Header />
       <div className="game-container">
         <HangedMan wrongLetters={wrongLetters} />
         <WrongLetters wrongLetters={wrongLetters} />
+        <SelectedWord
+          selectedWord={selectedWord}
+          correctLetters={correctLetters}
+        />
       </div>
     </div>
   );
