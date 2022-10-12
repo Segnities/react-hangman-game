@@ -1,23 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import Header from "./components/UI/Header/Header";
+
+import { showNotification as notification } from "./helpers/notification_helper";
+import { randomWord } from "./utils/randomWordGenerator";
+
+import "./App.css";
+
+let selectedWord;
 
 function App() {
+  const [playable, setPlayable] = useState(true);
+  const [correctLetters, setCorrectLetters] = useState([]);
+  const [wrongLetters, setWrongLetters] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
+
+  function handleButtonKeyDown(event) {
+    const { key, keyCode } = event;
+
+    if (playable && keyCode >= 65 && keyCode <= 90) {
+      const typed_letter = key.toLowerCase();
+      if (selectedWord.includes(typed_letter)) {
+        if (!correctLetters.includes(typed_letter)) {
+          setCorrectLetters((currentLetters) => [
+            ...currentLetters,
+            typed_letter,
+          ]);
+        } else {
+          notification(setShowNotification);
+        }
+      } else {
+        if (!wrongLetters.includes(typed_letter)) {
+          setWrongLetters((currentLetters) => [
+            ...currentLetters,
+            typed_letter,
+          ]);
+        } else {
+          showNotification(setShowNotification);
+        }
+      }
+    }
+  }
+
+  function playAgain() {
+    setPlayable(true);
+    setCorrectLetters([]);
+    setWrongLetters([]);
+  }
+
+  useEffect(()=> {
+    selectedWord = randomWord();
+    console.log(`${new Date().toLocaleTimeString()}: `,selectedWord);
+
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleButtonKeyDown);
+
+    return function() {
+      window.removeEventListener('keydown', handleButtonKeyDown);
+      selectedWord = randomWord();
+    } 
+
+  }, [playable, correctLetters, wrongLetters]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div className="game-container"></div>
     </div>
   );
 }
