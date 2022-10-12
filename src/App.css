@@ -1,8 +1,38 @@
 .App {
   width: 100%;
+  background-color: #34495e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
 header {
   text-align: center;
 }
 
+header h1 {
+  margin: 20px 0;
+} 
+
+
+.game-container {
+  width: 500px;
+  height: 350px;
+  padding: 20px 30px;
+  position: relative;
+  margin: auto;
+}
+
+.figure-container {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.figure-part {
+  display: none;
+}
