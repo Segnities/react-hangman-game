@@ -57,20 +57,20 @@ header h1 {
   display: flex;
   position: absolute;
   bottom: 10px;
+  left: 50%;
   transform: translateX(-50%);
   transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .selected-word-letter {
-  border-color: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: none;
+  border-bottom: 3px solid #2980b9;
+  display: inline-flex;
+  font-size: 30px;
   align-items: center;
   justify-content: center;
+  margin: 0 3px;
+  height: 50px;
+  width: 20px;
 }
 
 .popup-container {
@@ -87,8 +87,9 @@ header h1 {
 }
 
 .popup {
+  width: 45%;
   background: #2980b9;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
@@ -110,4 +111,18 @@ header h1 {
 
 .popup button:focus {
   outline: none;
+}
+
+.notification-container {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px 10px 0 0;
+  padding: 15px 20px;
+  position: absolute;
+  bottom: 50px;
+}
+
+.show-notification {
+  display: block;
+  transition: transform 0.4s ease-in-out;
 }

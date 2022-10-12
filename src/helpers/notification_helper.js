@@ -1,6 +1,7 @@
 export const showNotification = (show) => {
-    show(true);
-    setTimeout(()=> {
-        show(false);
-    }, 2000)
-} 
+  console.log('I worked');
+  show(true);
+  setTimeout(() => {
+    show(false);
+  }, 2000);
+};
