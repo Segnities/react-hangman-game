@@ -8,6 +8,7 @@ import HangedMan from "./components/HangedMan";
 import WrongLetters from "./WrongLetters";
 import SelectedWord from "./components/SelectedWord";
 import ResultPopup from "./components/ResultPopup";
+import Notification from "./components/Notification";
 
 import "./App.css";
 
@@ -19,7 +20,7 @@ function App() {
   const [wrongLetters, setWrongLetters] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
 
-  function handleButtonKeyDown(event) {
+   function handleButtonKeyDown(event) {
     const { key, keyCode } = event;
 
     if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -63,13 +64,6 @@ function App() {
 
   return (
     <div className="App">
-      <ResultPopup
-        correctLetters={correctLetters}
-        playAgain={playAgain}
-        selectedWord={selectedWord}
-        setPlayable={setPlayable}
-        wrongLetters={wrongLetters}
-      />
       <Header />
       <div className="game-container">
         <HangedMan wrongLetters={wrongLetters} />
@@ -79,6 +73,14 @@ function App() {
           correctLetters={correctLetters}
         />
       </div>
+      <ResultPopup
+        correctLetters={correctLetters}
+        playAgain={playAgain}
+        selectedWord={selectedWord}
+        setPlayable={setPlayable}
+        wrongLetters={wrongLetters}
+      />
+      <Notification showNotification={showNotification}/>
     </div>
   );
 }
