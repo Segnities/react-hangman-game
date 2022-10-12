@@ -4,10 +4,12 @@ import Header from "./components/UI/Header/Header";
 import { showNotification as notification } from "./helpers/notification_helper";
 import { randomWord } from "./utils/randomWordGenerator";
 
-import "./App.css";
 import HangedMan from "./components/HangedMan";
 import WrongLetters from "./WrongLetters";
 import SelectedWord from "./components/SelectedWord";
+import ResultPopup from "./components/ResultPopup";
+
+import "./App.css";
 
 let selectedWord = randomWord();
 
@@ -45,6 +47,7 @@ function App() {
   }
 
   function playAgain() {
+    selectedWord = randomWord();
     setPlayable(true);
     setCorrectLetters([]);
     setWrongLetters([]);
@@ -60,11 +63,21 @@ function App() {
 
   return (
     <div className="App">
+      <ResultPopup
+        correctLetters={correctLetters}
+        playAgain={playAgain}
+        selectedWord={selectedWord}
+        setPlayable={setPlayable}
+        wrongLetters={wrongLetters}
+      />
       <Header />
       <div className="game-container">
         <HangedMan wrongLetters={wrongLetters} />
         <WrongLetters wrongLetters={wrongLetters} />
-        <SelectedWord selectedWord={selectedWord} correctLetters={correctLetters}/>
+        <SelectedWord
+          selectedWord={selectedWord}
+          correctLetters={correctLetters}
+        />
       </div>
     </div>
   );

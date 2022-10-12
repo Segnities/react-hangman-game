@@ -1,5 +1,5 @@
 export const checkWin = (correct, wrong, word) => {
-  let status = "win";
+  let status = 'win';
 
   const wordArray = word.split("");
 
@@ -10,7 +10,7 @@ export const checkWin = (correct, wrong, word) => {
   }
 
   if (wrong.length === 6) {
-    status = false;
+    status = 'lose';
   }
 
   return status;
