@@ -6,6 +6,7 @@ import { randomWord } from "./utils/randomWordGenerator";
 
 import "./App.css";
 import HangedMan from "./components/HangedMan";
+import WrongLetters from "./WrongLetters";
 
 let selectedWord;
 
@@ -49,27 +50,26 @@ function App() {
     setWrongLetters([]);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     selectedWord = randomWord();
-    console.log(`${new Date().toLocaleTimeString()}: `,selectedWord);
-
-  }, [])
+    console.log(`${new Date().toLocaleTimeString()}: `, selectedWord);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", handleButtonKeyDown);
 
-    return function() {
-      window.removeEventListener('keydown', handleButtonKeyDown);
+    return function () {
+      window.removeEventListener("keydown", handleButtonKeyDown);
       selectedWord = randomWord();
-    } 
-
+    };
   }, [playable, correctLetters, wrongLetters]);
 
   return (
     <div className="App">
       <Header />
       <div className="game-container">
-        <HangedMan wrongLetters={wrongLetters}/>
+        <HangedMan wrongLetters={wrongLetters} />
+        <WrongLetters wrongLetters={wrongLetters} />
       </div>
     </div>
   );
