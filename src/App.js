@@ -7,8 +7,9 @@ import { randomWord } from "./utils/randomWordGenerator";
 import "./App.css";
 import HangedMan from "./components/HangedMan";
 import WrongLetters from "./WrongLetters";
+import SelectedWord from "./components/SelectedWord";
 
-let selectedWord;
+let selectedWord = randomWord();
 
 function App() {
   const [playable, setPlayable] = useState(true);
@@ -17,7 +18,6 @@ function App() {
   const [showNotification, setShowNotification] = useState(false);
 
   function handleButtonKeyDown(event) {
-    console.log(`${handleButtonKeyDown.name} worked!`);
     const { key, keyCode } = event;
 
     if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -51,16 +51,10 @@ function App() {
   }
 
   useEffect(() => {
-    selectedWord = randomWord();
-    console.log(`${new Date().toLocaleTimeString()}: `, selectedWord);
-  }, []);
-
-  useEffect(() => {
     window.addEventListener("keydown", handleButtonKeyDown);
 
     return function () {
       window.removeEventListener("keydown", handleButtonKeyDown);
-      selectedWord = randomWord();
     };
   }, [playable, correctLetters, wrongLetters]);
 
@@ -70,6 +64,7 @@ function App() {
       <div className="game-container">
         <HangedMan wrongLetters={wrongLetters} />
         <WrongLetters wrongLetters={wrongLetters} />
+        <SelectedWord selectedWord={selectedWord} correctLetters={correctLetters}/>
       </div>
     </div>
   );

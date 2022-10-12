@@ -53,3 +53,23 @@ header h1 {
 .wrong-letters-container span {
   font-size: 1.5rem;
 }
+
+.selected-word {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  transform: translateX(-50%);
+  transition: all 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.selected-word-letter {
+    border-color: rgba(0,0,0, 0.3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}

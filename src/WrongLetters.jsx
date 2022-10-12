@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React from "react";
 
 const WrongLetters = ({ wrongLetters }) => {
@@ -6,7 +7,7 @@ const WrongLetters = ({ wrongLetters }) => {
       <div>
         {wrongLetters.length > 0 && <p>Wrong letters - {wrongLetters.length}</p>}
         {wrongLetters
-          .map((letter, idx) => <span key={Date.now()}>{letter}</span>)
+          .map((letter) => <span key={nanoid()}>{letter}</span>)
           .reduce(
             (prev, curr) => (prev === null ? [curr] : [prev, ",", curr]),
             null
